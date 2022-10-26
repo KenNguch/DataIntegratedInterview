@@ -5,6 +5,7 @@ import com.dataintegrated.interview.entity.Route;
 import com.dataintegrated.interview.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -19,7 +20,7 @@ public class RouteService {
     private RouteRepository routeRepository;
 
     @Cacheable(value = KEY, key = "#routeId", unless = "#result == null")
-    public Route fetchByRouteId( BigInteger routeId) {
+    public Route fetchByRouteId(BigInteger routeId) {
         Route route = routeRepository.findByRouteId(routeId);
 
         if (route == null)
@@ -29,7 +30,13 @@ public class RouteService {
     }
 
     @Cacheable(value = KEY, unless = "#result == null")
-    public List<Route> fetchAllCategories() {
+    public List<Route> fetchAllRoutes() {
         return routeRepository.findAll();
+    }
+
+    @Async
+    public Route postRoute(Route route) {
+
+        return routeRepository.saveAndFlush(route);
     }
 }
