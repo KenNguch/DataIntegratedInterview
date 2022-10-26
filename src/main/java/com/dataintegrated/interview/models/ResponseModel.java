@@ -9,6 +9,11 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+
+/**
+ *
+ * @param <ResponseData>
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor

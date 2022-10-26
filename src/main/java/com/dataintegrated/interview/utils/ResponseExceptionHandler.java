@@ -13,6 +13,9 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class is used to handle exceptions
+ */
 @RestControllerAdvice
 @Slf4j
 public class ResponseExceptionHandler extends DefaultErrorAttributes {

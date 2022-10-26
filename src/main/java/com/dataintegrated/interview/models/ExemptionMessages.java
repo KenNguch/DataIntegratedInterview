@@ -1,5 +1,8 @@
 package com.dataintegrated.interview.models;
 
+/**
+ * This class is used to return a response to the client
+ */
 public enum ExemptionMessages {
     IllegalArgumentException, BAD_GATEWAY, NullPointerException, INTERNAL_SERVER_ERROR;
 

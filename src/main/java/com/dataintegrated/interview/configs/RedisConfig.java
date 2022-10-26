@@ -28,6 +28,11 @@ public class RedisConfig {
     @Value("${spring.cache.redis.time-to-live:3600}")
     private int timeToLive;
 
+    /**
+     * Jedis connection factory jedis connection factory.
+     *
+     * @return the jedis connection factory
+     */
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
@@ -37,6 +42,11 @@ public class RedisConfig {
         return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 
+    /**
+     * Redis template .
+     *
+     * @return the redis template
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -50,19 +60,24 @@ public class RedisConfig {
         return template;
     }
 
+    /**
+     * Cache manager redis cache manager.
+     *
+     * @return the redis cache manager
+     */
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
-        return RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(timeToLive))
-                .disableCachingNullValues();
+        return RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(timeToLive)).disableCachingNullValues();
     }
 
+    /**
+     * Cache manager redis cache manager.
+     *
+     * @return the redis cache manager
+     */
     @Bean
     public RedisCacheManager cacheManager() {
-        return RedisCacheManager.builder(jedisConnectionFactory())
-                .cacheDefaults(cacheConfiguration())
-                .transactionAware()
-                .build();
+        return RedisCacheManager.builder(jedisConnectionFactory()).cacheDefaults(cacheConfiguration()).transactionAware().build();
     }
 }
 
